@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS TOP UP - Platform Isi Ulang Cepat & Aman</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#6366f1',
+                        secondary: '#8b5cf6',
+                        accent: '#06b6d4',
+                        dark: '#0f172a',
+                        darker: '#020617',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'shimmer': 'shimmer 2s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-1000px 0' },
+                            '100%': { backgroundPosition: '1000px 0' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .glow {
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+        }
+        .selected {
+            border-color: #6366f1 !important;
+            background: rgba(99, 102, 241, 0.1) !important;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+        }
+        .payment-selected {
+            border-color: #06b6d4 !important;
+            background: rgba(6, 182, 212, 0.1) !important;
+        }
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            z-index: -1;
+        }
+        .input-field {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .input-field:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+        .price-tag {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        }
+        .popular-badge {
+            background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-in {
+            animation: slideIn 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="text-white overflow-x-hidden">
+
+    <!-- Background Effects -->
+    <div class="orb w-96 h-96 bg-primary top-0 left-0 animate-pulse-slow"></div>
+    <div class="orb w-96 h-96 bg-secondary bottom-0 right-0 animate-pulse-slow" style="animation-delay: 2s;"></div>
+    <div class="orb w-64 h-64 bg-accent top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-pulse-slow" style="animation-delay: 4s;"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass border-b border-white/10">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center glow">
+                    <i class="fas fa-bolt text-white text-xl"></i>
+                </div>
+                <span class="text-2xl font-bold tracking-tight">NEXUS<span class="gradient-text">TOPUP</span></span>
+            </div>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#" class="hover:text-primary transition-colors">Beranda</a>
+                <a href="#" class="hover:text-primary transition-colors">Cek Pesanan</a>
+                <a href="#" class="hover:text-primary transition-colors">Promo</a>
+                <a href="#" class="hover:text-primary transition-colors">Bantuan</a>
+            </div>
+            <button class="md:hidden text-2xl">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 pt-28 pb-12 max-w-6xl">
+        
+        <!-- Header Section -->
+        <div class="text-center mb-12 animate-slide-in">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">
+                Isi Ulang <span class="gradient-text">Cepat & Aman</span>
+            </h1>
+            <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+                Platform top up terpercaya dengan proses instan dan harga terbaik. 
+                Dukungan 24/7 untuk semua kebutuhan gaming Anda.
+            </p>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-8">
+            
+            <!-- Left Column: Game Selection & Input -->
+            <div class="lg:col-span-2 space-y-6">
+                
+                <!-- Step 1: Select Game -->
+                <div class="glass-card rounded-2xl p-6 animate-slide-in" style="animation-delay: 0.1s;">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">1</div>
+                        <h2 class="text-xl font-semibold">Pilih Game</h2>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="gameGrid">
+                        <!-- Games will be populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Step 2: Input Data -->
+                <div class="glass-card rounded-2xl p-6 animate-slide-in" style="animation-delay: 0.2s;">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">2</div>
+                        <h2 class="text-xl font-semibold">Masukkan Data Akun</h2>
+                    </div>
+
+                    <div class="space-y-4" id="inputForm">
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-2">User ID / Player ID</label>
+                            <div class="relative">
+                                <input type="text" id="userId" placeholder="Contoh: 123456789" 
+                                    class="input-field w-full px-4 py-3 rounded-xl text-white placeholder-gray-500 focus:outline-none">
+                                <i class="fas fa-user absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
+                            </div>
+                        </div>
+                        
+                        <div id="zoneInput" class="hidden">
+                            <label class="block text-sm text-gray-400 mb-2">Zone ID / Server</label>
+                            <div class="relative">
+                                <input type="text" id="zoneId" placeholder="Contoh: 1234" 
+                                    class="input-field w-full px-4 py-3 rounded-xl text-white placeholder-gray-500 focus:outline-none">
+                                <i class="fas fa-server absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2 text-sm text-gray-400 bg-white/5 p-3 rounded-lg">
+                            <i class="fas fa-info-circle text-primary"></i>
+                            <span>Pastikan ID sudah benar. Kesalahan input bukan tanggung jawab kami.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Select Nominal -->
+                <div class="glass-card rounded-2xl p-6 animate-slide-in" style="animation-delay: 0.3s;">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">3</div>
+                        <h2 class="text-xl font-semibold">Pilih Nominal Top Up</h2>
+                    </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4" id="nominalGrid">
+                        <!-- Nominals will be populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Step 4: Payment Method -->
+                <div class="glass-card rounded-2xl p-6 animate-slide-in" style="animation-delay: 0.4s;">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">4</div>
+                        <h2 class="text-xl font-semibold">Metode Pembayaran</h2>
+                    </div>
+
+                    <div class="space-y-3" id="paymentMethods">
+                        <!-- Payment methods populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Order Summary -->
+            <div class="lg:col-span-1">
+                <div class="sticky top-28 glass-card rounded-2xl p-6 animate-slide-in" style="animation-delay: 0.5s;">
+                    <h3 class="text-xl font-semibold mb-6 flex items-center gap-2">
+                        <i class="fas fa-receipt text-primary"></i>
+                        Ringkasan Pesanan
+                    </h3>
+
+                    <div class="space-y-4 mb-6">
+                        <div class="flex justify-between items-center py-2 border-b border-white/10">
+                            <span class="text-gray-400">Game</span>
+                            <span class="font-medium" id="summaryGame">-</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b border-white/10">
+                            <span class="text-gray-400">ID Player</span>
+                            <span class="font-medium" id="summaryId">-</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b border-white/10">
+                            <span class="text-gray-400">Item</span>
+                            <span class="font-medium" id="summaryItem">-</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b border-white/10">
+                            <span class="text-gray-400">Harga</span>
+                            <span class="font-medium" id="summaryPrice">Rp 0</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b border-white/10">
+                            <span class="text-gray-400">Biaya Admin</span>
+                            <span class="font-medium" id="summaryFee">Rp 0</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-primary/20 to-secondary/20 rounded-xl p-4 mb-6 border border-primary/30">
+                        <div class="flex justify-between items-center">
+                            <span class="font-semibold">Total Pembayaran</span>
+                            <span class="text-2xl font-bold gradient-text" id="summaryTotal">Rp 0</span>
+                        </div>
+                    </div>
+
+                    <button onclick="processOrder()" id="btnOrder" 
+                        class="w-full py-4 rounded-xl bg-gradient-to-r from-primary to-secondary font-semibold text-lg hover:opacity-90 transition-all transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed glow">
+                        <i class="fas fa-shopping-cart mr-2"></i>
+                        Bayar Sekarang
+                    </button>
+
+                    <div class="mt-4 flex items-center justify-center gap-4 text-gray-400 text-sm">
+                        <span class="flex items-center gap-1"><i class="fas fa-shield-alt text-green-400"></i> Aman</span>
+                        <span class="flex items-center gap-1"><i class="fas fa-bolt text-yellow-400"></i> Cepat</span>
+                        <span class="flex items-center gap-1"><i class="fas fa-check-circle text-blue-400"></i> Terpercaya</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Promo Banner -->
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <div class="glass-card rounded-2xl p-8 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-primary/30 to-secondary/30 rounded-full blur-3xl -mr-20 -mt-20"></div>
+            <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div>
+                    <h3 class="text-2xl font-bold mb-2">Bonus Cashback 10%</h3>
+                    <p class="text-gray-400">Dapatkan cashback untuk setiap transaksi minimal Rp 100.000 hari ini!</p>
+                </div>
+                <button class="px-6 py-3 rounded-full bg-white text-dark font-semibold hover:bg-gray-100 transition-colors">
+                    Klaim Sekarang
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 mt-12 py-8">
+        <div class="container mx-auto px-4 text-center text-gray-400">
+            <p>&copy; 2024 Nexus Top Up. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+        <div class="glass-card rounded-2xl p-8 max-w-md w-full text-center transform scale-95 opacity-0 transition-all duration-300" id="modalContent">
+            <div class="w-20 h-20 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-check text-4xl text-green-400"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-2">Pesanan Berhasil!</h3>
+            <p class="text-gray-400 mb-6">Silakan lakukan pembayaran sesuai metode yang dipilih. Detail pesanan telah dikirim ke WhatsApp Anda.</p>
+            <div class="bg-white/5 rounded-lg p-4 mb-6 text-left">
+                <p class="text-sm text-gray-400 mb-1">Nomor Invoice</p>
+                <p class="font-mono text-lg font-bold text-primary" id="invoiceNumber">INV-2024-001</p>
+            </div>
+            <button onclick="closeModal()" class="w-full py-3 rounded-xl bg-primary font-semibold hover:bg-primary/80 transition-colors">
+                Tutup
+            </button>
+        </div>
+    </div>
+
+    <script>
+           // Data Games
+        const games = [
+            { id: 'ml', name: 'Mobile Legends', image: 'https://cdn-icons-png.flaticon.com/512/871/871397.png', hasZone: true },
+            { id: 'ff', name: 'Free Fire', image: 'https://cdn-icons-png.flaticon.com/512/871/871397.png', hasZone: false },
+            { id: 'pubg', name: 'PUBG Mobile', image: 'https://cdn-icons-png.flaticon.com/512/871/871397.png', hasZone: false },
+            { id: 'genshin', name: 'Genshin Impact', image: 'https://cdn-icons-png.flaticon.com/512/871/871397.png', hasZone: true },
+            { id: 'valorant', name: 'Valorant', image: 'https://cdn-icons-png.flaticon.com/512/871/871397.png', hasZone: false },
+            { id: 'cod', name: 'Call of Duty', image: 'https://cdn-icons-png.flaticon.com/512/871/871397.png', hasZone: false },
+            { id: 'aov', name: 'Arena of Valor', image: 'https://cdn-icons-png.flaticon.com/512/871/871397.png', hasZone: true },
+            { id: 'lol', name: 'Wild Rift', image: 'https://cdn-icons-png.flaticon.com/512/871/871397.png', hasZone: false },
+        ];
+
+        // Data Nominal
+        const nominals = {
+            'ml': [
+                { id: 1, name: '86 Diamonds', price: 15000, bonus: 'Bonus 8 Diamonds', popular: false },
+                { id: 2, name: '172 Diamonds', price: 28000, bonus: 'Bonus 16 Diamonds', popular: false },
+                { id: 3, name: '257 Diamonds', price: 42000, bonus: 'Bonus 25 Diamonds', popular: true },
+                { id: 4, name: '344 Diamonds', price: 55000, bonus: 'Bonus 34 Diamonds', popular: false },
+                { id: 5, name: '429 Diamonds', price: 68000, bonus: 'Bonus 42 Diamonds', popular: false },
+                { id: 6, name: '716 Diamonds', price: 110000, bonus: 'Bonus 71 Diamonds', popular: false },
+                { id: 7, name: '1446 Diamonds', price: 220000, bonus: 'Bonus 144 Diamonds', popular: false },
+                { id: 8, name: '2976 Diamonds', price: 450000, bonus: 'Bonus 297 Diamonds', popular: false },
+            ],
+            'ff': [
+                { id: 1, name: '50 Diamonds', price: 8000, bonus: '', popular: false },
+                { id: 2, name: '100 Diamonds', price: 15000, bonus: 'Bonus 10 Diamonds', popular: true },
+                { id: 3, name: '310 Diamonds', price: 45000, bonus: 'Bonus 31 Diamonds', popular: false },
+                { id: 4, name: '520 Diamonds', price: 75000, bonus: 'Bonus 52 Diamonds', popular: false },
+                { id: 5, name: '1060 Diamonds', price: 150000, bonus: 'Bonus 106 Diamonds', popular: false },
+                { id: 6, name: '2180 Diamonds', price: 300000, bonus: 'Bonus 218 Diamonds', popular: false },
+            ],
+            'default': [
+                { id: 1, name: '100 Currency', price: 15000, bonus: '', popular: false },
+                { id: 2, name: '250 Currency', price: 35000, bonus: 'Bonus 25', popular: true },
+                { id: 3, name: '500 Currency', price: 65000, bonus: 'Bonus 50', popular: false },
+                { id: 4, name: '1000 Currency', price: 120000, bonus: 'Bonus 100', popular: false },
+                { id: 5, name: '2000 Currency', price: 230000, bonus: 'Bonus 200', popular: false },
+            ]
+        };
+
+           // Payment Methods
+        const payments = [
+            { id: 'qris', name: 'QRIS', icon: 'fa-qrcode', fee: 0, color: 'from-blue-500 to-cyan-500' },
+            { id: 'gopay', name: 'GoPay', icon: 'fa-wallet', fee: 1000, color: 'from-blue-400 to-blue-600' },
+            { id: 'ovo', name: 'OVO', icon: 'fa-circle', fee: 1000, color: 'from-purple-500 to-pink-500' },
+            { id: 'dana', name: 'DANA', icon: 'fa-money-bill-wave', fee: 1000, color: 'from-blue-600 to-indigo-600' },
+            { id: 'bca', name: 'Transfer BCA', icon: 'fa-university', fee: 4000, color: 'from-blue-700 to-blue-900' },
+            { id: 'mandiri', name: 'Transfer Mandiri', icon: 'fa-university', fee: 4000, color: 'from-yellow-600 to-yellow-800' },
+        ];
+
+        // State
+        let selectedGame = null;
+        let selectedNominal = null;
+        let selectedPayment = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderGames();
+            renderPayments();
+            updateSummary();
+        });
+
+        function renderGames() {
+            const grid = document.getElementById('gameGrid');
+            grid.innerHTML = games.map(game => `
+                <div onclick="selectGame('${game.id}')" 
+                    class="game-card cursor-pointer rounded-xl p-4 border border-white/10 hover:border-primary/50 transition-all ${selectedGame === game.id ? 'selected' : 'bg-white/5'}"
+                    data-game="${game.id}">
+                    <div class="aspect-square rounded-lg bg-gradient-to-br from-gray-700 to-gray-800 mb-3 flex items-center justify-center text-4xl">
+                        <i class="fas fa-gamepad text-gray-400"></i>
+                    </div>
+                    <h3 class="font-medium text-sm text-center">${game.name}</h3>
+                </div>
+            `).join('');
+        }
+
+        function selectGame(gameId) {
+            selectedGame = gameId;
+            selectedNominal = null;
+            
+            // Update UI
+            document.querySelectorAll('.game-card').forEach(card => {
+                card.classList.remove('selected');
+                card.classList.add('bg-white/5');
+            });
+            document.querySelector(`[data-game="${gameId}"]`).classList.add('selected');
+            document.querySelector(`[data-game="${gameId}"]`).classList.remove('bg-white/5');
+
+            // Show/hide zone input
+            const game = games.find(g => g.id === gameId);
+            document.getElementById('zoneInput').classList.toggle('hidden', !game.hasZone);
+            
+            renderNominals();
+            updateSummary();
+        }
+
+        function renderNominals() {
+            const grid = document.getElementById('nominalGrid');
+            const gameData = nominals[selectedGame] || nominals['default'];
+            
+            grid.innerHTML = gameData.map((item, index) => `
+                <div onclick="selectNominal(${item.id}, ${item.price})" 
+                    class="nominal-card cursor-pointer rounded-xl p-4 border border-white/10 hover:border-primary/50 transition-all relative ${selectedNominal === item.id ? 'selected' : 'bg-white/5'}"
+                    data-nominal="${item.id}"
+                    style="animation: slideIn 0.3s ease-out ${index * 0.05}s forwards; opacity: 0;">
+                    ${item.popular ? '<div class="absolute -top-2 -right-2 popular-badge text-xs px-2 py-1 rounded-full font-bold">POPULER</div>' : ''}
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="font-bold text-lg">${item.name}</span>
+                    </div>
+                    ${item.bonus ? `<div class="text-xs text-green-400 mb-2"><i class="fas fa-gift mr-1"></i>${item.bonus}</div>` : ''}
+                    <div class="price-tag text-white text-sm font-semibold px-3 py-1 rounded-full inline-block">
+                        Rp ${item.price.toLocaleString('id-ID')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function selectNominal(id, price) {
+            selectedNominal = id;
+            
+            document.querySelectorAll('.nominal-card').forEach(card => {
+                card.classList.remove('selected');
+                card.classList.add('bg-white/5');
+            });
+            document.querySelector(`[data-nominal="${id}"]`).classList.add('selected');
+            document.querySelector(`[data-nominal="${id}"]`).classList.remove('bg-white/5');
+            
+            updateSummary();
+        }
+
+        function renderPayments() {
+            const container = document.getElementById('paymentMethods');
+            container.innerHTML = payments.map(payment => `
+                <div onclick="selectPayment('${payment.id}')" 
+                    class="payment-card cursor-pointer rounded-xl p-4 border border-white/10 hover:border-accent/50 transition-all flex items-center justify-between ${selectedPayment === payment.id ? 'payment-selected' : 'bg-white/5'}"
+                    data-payment="${payment.id}">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-lg bg-gradient-to-br ${payment.color} flex items-center justify-center">
+                            <i class="fas ${payment.icon} text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">${payment.name}</h4>
+                            <p class="text-sm text-gray-400">Biaya admin: Rp ${payment.fee.toLocaleString('id-ID')}</p>
+                        </div>
+                    </div>
+                    <div class="w-6 h-6 rounded-full border-2 ${selectedPayment === payment.id ? 'border-accent bg-accent' : 'border-gray-500'} flex items-center justify-center">
+                        ${selectedPayment === payment.id ? '<i class="fas fa-check text-white text-xs"></i>' : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function selectPayment(id) {
+            selectedPayment = id;
+            renderPayments();
+            updateSummary();
+        }
+
+        function updateSummary() {
+            const game = games.find(g => g.id === selectedGame);
+            const nominalData = selectedGame ? (nominals[selectedGame] || nominals['default']) : [];
+            const nominal = nominalData.find(n => n.id === selectedNominal);
+            const payment = payments.find(p => p.id === selectedPayment);
+
+            document.getElementById('summaryGame').textContent = game ? game.name : '-';
+            
+            const userId = document.getElementById('userId').value;
+            const zoneId = document.getElementById('zoneId').value;
+            document.getElementById('summaryId').textContent = userId ? (zoneId ? `${userId} (${zoneId})` : userId) : '-';
+            
+            document.getElementById('summaryItem').textContent = nominal ? nominal.name : '-';
+            document.getElementById('summaryPrice').textContent = nominal ? `Rp ${nominal.price.toLocaleString('id-ID')}` : 'Rp 0';
+            document.getElementById('summaryFee').textContent = payment ? `Rp ${payment.fee.toLocaleString('id-ID')}` : 'Rp 0';
+            
+            const total = (nominal ? nominal.price : 0) + (payment ? payment.fee : 0);
+            document.getElementById('summaryTotal').textContent = `Rp ${total.toLocaleString('id-ID')}`;
+
+            // Enable/disable button
+            const btn = document.getElementById('btnOrder');
+            btn.disabled = !(selectedGame && selectedNominal && selectedPayment && userId);
+        }
+
+        // Input listeners
+        document.getElementById('userId').addEventListener('input', updateSummary);
+        document.getElementById('zoneId').addEventListener('input', updateSummary);
+
+        function processOrder() {
+            const modal = document.getElementById('successModal');
+            const content = document.getElementById('modalContent');
+            const invoice = 'INV-' + Date.now().toString().slice(-8);
+            
+            document.getElementById('invoiceNumber').textContent = invoice;
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('successModal');
+            const content = document.getElementById('modalContent');
+            
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 300);
+        }
+
+        // Close modal on outside click
+        document.getElementById('successModal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) closeModal();
+        });
+    </script>
+</body>
+</html>
